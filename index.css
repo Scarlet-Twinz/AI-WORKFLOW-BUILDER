@@ -1,0 +1,174 @@
+/* =====================================================
+   VectorFlow AI - Premium Theme
+===================================================== */
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  background:linear-gradient(
+    135deg,
+    #eef4ff 0%,
+    #f8fbff 45%,
+    #edf7ff 100%
+  );
+
+  color:#0f172a;
+
+  overflow-x:hidden;
+  overflow-y:auto;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+  width:10px;
+  height:10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#94a3b8;
+  border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#64748b;
+}
+
+::-webkit-scrollbar-track{
+  background:#edf2ff;
+}
+
+/* React Flow */
+
+.react-flow{
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(
+      circle at top,
+      #f8fbff,
+      #eef5ff,
+      #e7f0ff
+    );
+}
+
+.react-flow__renderer{
+  background:transparent;
+}
+
+.react-flow__pane{
+  cursor:grab;
+}
+
+.react-flow__pane:active{
+  cursor:grabbing;
+}
+
+.react-flow__controls{
+  border:none !important;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(15,23,42,.10);
+}
+
+.react-flow__controls button{
+  width:40px;
+  height:40px;
+  background:#fff;
+  color:#2563eb;
+  border:none;
+  transition:.25s;
+}
+
+.react-flow__controls button:hover{
+  background:#2563eb;
+  color:#fff;
+}
+
+.react-flow__minimap{
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #dbeafe;
+  box-shadow:0 10px 25px rgba(15,23,42,.08);
+}
+
+.react-flow__edge-path,
+.react-flow__connection-path{
+  stroke:#2563eb;
+  stroke-width:2.5;
+}
+
+.react-flow__handle{
+  width:12px !important;
+  height:12px !important;
+  border:2px solid #fff;
+  background:#2563eb;
+}
+
+.react-flow__node{
+  transition:.2s;
+}
+
+.react-flow__node:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 35px rgba(37,99,235,.15);
+}
+
+/* Form Controls */
+
+input,
+select,
+textarea{
+  width:100%;
+  margin-top:8px;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #d6ddeb;
+  font-size:14px;
+  outline:none;
+  transition:.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 4px rgba(37,99,235,.10);
+}
+
+/* Buttons */
+
+button{
+  cursor:pointer;
+  font-family:inherit;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(37,99,235,.20);
+}
