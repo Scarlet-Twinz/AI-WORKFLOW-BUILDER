@@ -1,0 +1,7 @@
+# Ignore files from Vercel deployments
+node_modules
+*.pyc
+*.py
+main.cpython-313.pyc
+backend/
+.DS_Store
