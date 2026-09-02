@@ -1,32 +1,24 @@
 # AI Workflow Builder
 
-A modern visual workflow builder for designing AI and automation pipelines with drag-and-drop nodes, connected execution paths, and backend DAG validation.
+A visual workflow builder for designing AI and automation pipelines with drag-and-drop nodes, connected execution paths, and FastAPI-powered DAG validation.
 
-## ✨ Overview
+## Overview
 
-AI Workflow Builder lets you visually compose workflows instead of defining every pipeline step manually in code. Nodes can be placed on a React Flow canvas, connected together, configured, and submitted to a FastAPI analysis endpoint that reports the workflow structure and whether the graph is a valid Directed Acyclic Graph (DAG).
+AI Workflow Builder lets you visually compose workflows instead of defining every pipeline step manually in code. Nodes can be placed on a React Flow canvas, connected, configured, and submitted to a FastAPI endpoint that reports the workflow structure and whether the graph is a valid Directed Acyclic Graph (DAG).
 
-The project combines a visual node editor with a lightweight Python API, making it a practical example of frontend interaction, state management, graph processing, and full-stack development.
+The project demonstrates frontend interaction, workflow state management, graph processing, API integration, and full-stack development.
 
-## 🚀 Features
+## Features
 
 - Drag-and-drop workflow canvas
-- React Flow node editor with smoothstep connections
+- React Flow node editor
 - Nine reusable workflow node types
-- Input and output nodes for pipeline boundaries
-- Text processing node with dynamic configuration
-- LLM node for AI-oriented workflow design
-- REST API node for external service integration
-- Database node for data operations
-- Email node for notification workflows
-- Image node for image-oriented pipelines
-- Condition node for branching logic
-- Node minimap, zoom controls, grid snapping, and canvas navigation
+- Grid snapping, minimap, zoom controls, and canvas navigation
 - Centralized workflow state with Zustand
 - FastAPI backend for pipeline analysis
-- DAG validation using depth-first graph traversal
+- Depth-first DAG validation
 
-## 🧩 Node Types
+## Node Types
 
 | Node | Purpose |
 | --- | --- |
@@ -34,13 +26,13 @@ The project combines a visual node editor with a lightweight Python API, making 
 | Output | Represents the end of a workflow |
 | Text | Transforms or expands text content |
 | LLM | Represents an AI/LLM processing step |
-| REST API | Connects a workflow to external services |
+| REST API | Represents external service integration |
 | Database | Represents database operations |
-| Email | Represents email/notification actions |
-| Image | Represents image processing or generation steps |
+| Email | Represents notification actions |
+| Image | Represents image processing or generation |
 | Condition | Represents conditional workflow logic |
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
 React + React Flow
@@ -52,7 +44,7 @@ React + React Flow
  Zustand State Store
         │
         ▼
- POST /pipelines/parse
+ Pipeline Analysis Request
         │
         ▼
  FastAPI Backend
@@ -61,7 +53,7 @@ React + React Flow
  Graph / DAG Validation
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -78,22 +70,23 @@ React + React Flow
 - Pydantic
 - Uvicorn
 
-### Source Control
+### Tooling
 
 - Git
 - GitHub
+- npm
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 .
-├── public/                   # Static assets
-├── App.js                    # Main application shell
-├── ui.js                     # React Flow workflow canvas
-├── toolbar.js                # Node toolbar
-├── store.js                  # Zustand workflow state
-├── submit.js                 # Pipeline analysis request
-├── BaseNode.js               # Shared node component
+├── public/
+├── App.js
+├── ui.js
+├── toolbar.js
+├── store.js
+├── submit.js
+├── BaseNode.js
 ├── inputNode.js
 ├── outputNode.js
 ├── textNode.js
@@ -103,13 +96,21 @@ React + React Flow
 ├── emailNode.js
 ├── imageNode.js
 ├── conditionNode.js
-├── main.py                   # FastAPI development entrypoint
-├── requirements.txt          # Python dependencies
+├── main.py
+├── requirements.txt
 ├── package.json
 └── README.md
 ```
 
-## ⚙️ Getting Started
+## Getting Started
+
+### Prerequisites
+
+Install:
+
+- Node.js
+- npm
+- Python 3
 
 ### 1. Clone the repository
 
@@ -124,17 +125,9 @@ cd AI-WORKFLOW-BUILDER
 npm install
 ```
 
-### 3. Start the frontend
+### 3. Start the FastAPI backend
 
-```bash
-npm start
-```
-
-The React application runs locally at `http://localhost:3000`.
-
-### 4. Set up the FastAPI backend
-
-Create and activate a Python virtual environment:
+Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
@@ -146,31 +139,49 @@ Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
-Install the backend dependencies:
+Install Python dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Start FastAPI:
+Start the API:
 
 ```bash
 uvicorn main:app --reload --port 8000
 ```
 
-The local API is available at `http://127.0.0.1:8000`.
+The API runs at:
 
-> Run the frontend and backend in separate terminal windows.
+```text
+http://127.0.0.1:8000
+```
 
-## 🔎 Pipeline Analysis
+### 4. Start the React frontend
 
-When **Analyze Pipeline** is selected, the frontend sends the current nodes and edges to:
+Open a second terminal and run:
+
+```bash
+npm start
+```
+
+The frontend runs at:
+
+```text
+http://localhost:3000
+```
+
+Keep both terminals running while using the application.
+
+## Pipeline Analysis
+
+When **Analyze Pipeline** is selected, the frontend sends the current workflow nodes and edges to:
 
 ```text
 POST http://127.0.0.1:8000/pipelines/parse
 ```
 
-The API returns the number of nodes, number of edges, and whether the workflow is a valid Directed Acyclic Graph.
+The API returns the number of nodes, number of edges, and whether the workflow is a valid DAG.
 
 Example response:
 
@@ -184,35 +195,40 @@ Example response:
 
 The DAG check uses depth-first traversal to detect cycles in the directed workflow graph.
 
-## 🧪 Local Development
+## Local Development
 
 For the complete local experience:
 
 1. Start FastAPI on port `8000`.
-2. Start the React application on port `3000`.
+2. Start React on port `3000`.
 3. Open the React application in your browser.
 4. Add and connect workflow nodes.
-5. Select **Analyze Pipeline** to validate the workflow graph.
+5. Configure the nodes as needed.
+6. Select **Analyze Pipeline** to validate the workflow graph.
 
-No external deployment service is required to run the project locally.
+No external deployment service is required.
 
-## 🔮 Future Improvements
+## Deployment
+
+This repository is documented for **local development and execution**. A public hosted deployment is not currently provided.
+
+## Future Improvements
 
 - Persist workflows to a database
 - Add workflow save/load functionality
-- Add execution simulation and step-by-step run history
-- Add richer LLM configuration and provider integrations
+- Add execution simulation and run history
+- Add richer LLM provider integrations
 - Add authentication and user workspaces
 - Add automated frontend and API tests
-- Add workflow templates for common AI automation patterns
+- Add reusable workflow templates
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
-## 👤 Author
+## Author
 
-**Anthony Agatha Nwanneka**
+**Anthony Emmanuella Mmasinachi**
 
 Full-stack developer building practical applications across frontend engineering, backend systems, APIs, automation, and AI-focused workflows.
 
