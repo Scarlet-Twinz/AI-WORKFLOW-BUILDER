@@ -11,24 +11,23 @@ export const SubmitButton = () => {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/pipelines/parse",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nodes: nodes.map((node) => ({
-              id: node.id,
-            })),
-            edges: edges.map((edge) => ({
-              source: edge.source,
-              target: edge.target,
-            })),
-          }),
-        }
-      );
+      const response = await fetch("/api/pipelines/parse", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nodes: nodes.map((node) => ({ id: node.id })),
+          edges: edges.map((edge) => ({
+            source: edge.source,
+            target: edge.target,
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Backend returned ${response.status}`);
+      }
 
       const result = await response.json();
 
@@ -39,7 +38,7 @@ export const SubmitButton = () => {
       );
     } catch (err) {
       console.error(err);
-      alert("Cannot connect to backend.");
+      alert("Cannot connect to the workflow analysis API.");
     } finally {
       setLoading(false);
     }
@@ -63,11 +62,9 @@ export const SubmitButton = () => {
           border: "none",
           borderRadius: "14px",
           color: "#fff",
-          cursor: "pointer",
-          background:
-            "linear-gradient(135deg,#2563eb,#4f46e5)",
-          boxShadow:
-            "0 15px 35px rgba(37,99,235,.25)",
+          cursor: loading ? "wait" : "pointer",
+          background: "linear-gradient(135deg,#2563eb,#4f46e5)",
+          boxShadow: "0 15px 35px rgba(37,99,235,.25)",
         }}
       >
         {loading ? "Analyzing..." : "🚀 Analyze Pipeline"}
