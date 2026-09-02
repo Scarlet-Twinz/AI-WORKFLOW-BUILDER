@@ -1,7 +1,4 @@
-# Ignore files from Vercel deployments
+# Keep the Vercel deployment focused on the application
 node_modules
 *.pyc
-*.py
-main.cpython-313.pyc
-backend/
 .DS_Store
