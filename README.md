@@ -6,7 +6,7 @@ A modern visual workflow builder for designing AI and automation pipelines with 
 
 AI Workflow Builder lets you visually compose workflows instead of defining every pipeline step manually in code. Nodes can be placed on a React Flow canvas, connected together, configured, and submitted to a FastAPI analysis endpoint that reports the workflow structure and whether the graph is a valid Directed Acyclic Graph (DAG).
 
-The project combines a visual node editor with a lightweight Python API, making it a practical example of frontend interaction, state management, graph processing, and full-stack deployment.
+The project combines a visual node editor with a lightweight Python API, making it a practical example of frontend interaction, state management, graph processing, and full-stack development.
 
 ## 🚀 Features
 
@@ -25,7 +25,6 @@ The project combines a visual node editor with a lightweight Python API, making 
 - Centralized workflow state with Zustand
 - FastAPI backend for pipeline analysis
 - DAG validation using depth-first graph traversal
-- Same-origin API requests for Vercel deployment
 
 ## 🧩 Node Types
 
@@ -53,10 +52,10 @@ React + React Flow
  Zustand State Store
         │
         ▼
- POST /api/pipelines/parse
+ POST /pipelines/parse
         │
         ▼
- FastAPI Python Function
+ FastAPI Backend
         │
         ▼
  Graph / DAG Validation
@@ -77,18 +76,17 @@ React + React Flow
 - Python
 - FastAPI
 - Pydantic
+- Uvicorn
 
-### Deployment
+### Source Control
 
-- Vercel-ready frontend and FastAPI API
-- GitHub for source control and project documentation
+- Git
+- GitHub
 
 ## 📁 Project Structure
 
 ```text
 .
-├── api/
-│   └── index.py              # Vercel FastAPI entrypoint
 ├── public/                   # Static assets
 ├── App.js                    # Main application shell
 ├── ui.js                     # React Flow workflow canvas
@@ -105,8 +103,8 @@ React + React Flow
 ├── emailNode.js
 ├── imageNode.js
 ├── conditionNode.js
-├── main.py                   # Local FastAPI development entrypoint
-├── requirements.txt          # Python deployment dependencies
+├── main.py                   # FastAPI development entrypoint
+├── requirements.txt          # Python dependencies
 ├── package.json
 └── README.md
 ```
@@ -134,9 +132,9 @@ npm start
 
 The React application runs locally at `http://localhost:3000`.
 
-### 4. Start the local FastAPI backend
+### 4. Set up the FastAPI backend
 
-Create and activate a Python virtual environment, then install the backend dependencies:
+Create and activate a Python virtual environment:
 
 ```bash
 python -m venv .venv
@@ -148,7 +146,7 @@ Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 ```
 
-Install dependencies:
+Install the backend dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -162,13 +160,19 @@ uvicorn main:app --reload --port 8000
 
 The local API is available at `http://127.0.0.1:8000`.
 
-> For the deployed Vercel version, the frontend uses the same-origin `/api/pipelines/parse` endpoint instead of the local port 8000 URL.
+> Run the frontend and backend in separate terminal windows.
 
 ## 🔎 Pipeline Analysis
 
-When **Analyze Pipeline** is selected, the frontend sends the current nodes and edges to the FastAPI endpoint.
+When **Analyze Pipeline** is selected, the frontend sends the current nodes and edges to:
 
-The API returns:
+```text
+POST http://127.0.0.1:8000/pipelines/parse
+```
+
+The API returns the number of nodes, number of edges, and whether the workflow is a valid Directed Acyclic Graph.
+
+Example response:
 
 ```json
 {
@@ -180,24 +184,17 @@ The API returns:
 
 The DAG check uses depth-first traversal to detect cycles in the directed workflow graph.
 
-## 🌐 Deployment
+## 🧪 Local Development
 
-The project is structured for deployment as a single Vercel application:
+For the complete local experience:
 
-- React provides the frontend.
-- `api/index.py` provides the FastAPI serverless API.
-- `/api/pipelines/parse` is the production pipeline-analysis endpoint.
-- The frontend and API use the same origin, so no separate backend URL is required.
+1. Start FastAPI on port `8000`.
+2. Start the React application on port `3000`.
+3. Open the React application in your browser.
+4. Add and connect workflow nodes.
+5. Select **Analyze Pipeline** to validate the workflow graph.
 
-There is currently **no public live demo URL** included here. The repository itself is the canonical project reference.
-
-**Repository:** https://github.com/Scarlet-Twinz/AI-WORKFLOW-BUILDER
-
-## 🧪 Local Development Notes
-
-The root `main.py` remains available for running FastAPI locally with Uvicorn. The `api/index.py` entrypoint is used for Vercel's Python runtime.
-
-For local development, run the frontend and backend separately. For Vercel deployment, the API is exposed under `/api/*` on the same deployment as the frontend.
+No external deployment service is required to run the project locally.
 
 ## 🔮 Future Improvements
 
@@ -215,6 +212,8 @@ This project is licensed under the MIT License.
 
 ## 👤 Author
 
-**Anthony**
+**Anthony Agatha Nwanneka**
 
 Full-stack developer building practical applications across frontend engineering, backend systems, APIs, automation, and AI-focused workflows.
+
+**GitHub:** https://github.com/Scarlet-Twinz
