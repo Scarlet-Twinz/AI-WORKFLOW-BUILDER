@@ -1,4 +1,0 @@
-# Keep the Vercel deployment focused on the application
-node_modules
-*.pyc
-.DS_Store
