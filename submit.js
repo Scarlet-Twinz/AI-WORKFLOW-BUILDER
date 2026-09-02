@@ -11,7 +11,7 @@ export const SubmitButton = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/pipelines/parse", {
+      const response = await fetch("http://127.0.0.1:8000/pipelines/parse", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export const SubmitButton = () => {
       );
     } catch (err) {
       console.error(err);
-      alert("Cannot connect to the workflow analysis API.");
+      alert("Cannot connect to the workflow analysis API. Make sure FastAPI is running on port 8000.");
     } finally {
       setLoading(false);
     }
