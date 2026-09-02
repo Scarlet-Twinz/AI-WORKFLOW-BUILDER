@@ -13,7 +13,8 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "reactflow": "^11.8.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
