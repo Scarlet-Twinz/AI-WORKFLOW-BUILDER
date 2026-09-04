@@ -1,16 +1,18 @@
+from typing import List
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List
 
-app = FastAPI()
+app = FastAPI(title="AI Workflow Builder API")
 
-# Allow React frontend to connect
+# Local development frontend. Keep the API boundary explicit rather than
+# allowing arbitrary browser origins.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -31,7 +33,12 @@ class Pipeline(BaseModel):
 
 @app.get("/")
 def root():
-    return {"message": "Backend Running"}
+    return {"message": "AI Workflow Builder API is running"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 
 @app.post("/pipelines/parse")
@@ -41,13 +48,21 @@ def parse_pipeline(pipeline: Pipeline):
 
     graph = {node.id: [] for node in pipeline.nodes}
 
+    # Invalid references cannot form a valid workflow graph. Treat them as
+    # invalid input instead of allowing a missing-node lookup to raise a 500.
     for edge in pipeline.edges:
+        if edge.source not in graph or edge.target not in graph:
+            return {
+                "num_nodes": num_nodes,
+                "num_edges": num_edges,
+                "is_dag": False,
+            }
         graph[edge.source].append(edge.target)
 
     visited = set()
     visiting = set()
 
-    def dfs(node):
+    def dfs(node: str) -> bool:
         if node in visiting:
             return False
         if node in visited:
@@ -55,7 +70,7 @@ def parse_pipeline(pipeline: Pipeline):
 
         visiting.add(node)
 
-        for neighbour in graph.get(node, []):
+        for neighbour in graph[node]:
             if not dfs(neighbour):
                 return False
 
@@ -63,16 +78,16 @@ def parse_pipeline(pipeline: Pipeline):
         visited.add(node)
         return True
 
-    is_dag = True
-
     for node in graph:
-        if node not in visited:
-            if not dfs(node):
-                is_dag = False
-                break
+        if node not in visited and not dfs(node):
+            return {
+                "num_nodes": num_nodes,
+                "num_edges": num_edges,
+                "is_dag": False,
+            }
 
     return {
         "num_nodes": num_nodes,
         "num_edges": num_edges,
-        "is_dag": is_dag,
+        "is_dag": True,
     }
