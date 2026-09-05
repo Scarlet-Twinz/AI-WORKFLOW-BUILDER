@@ -2,6 +2,10 @@
 
 A visual workflow builder for designing AI and automation pipelines with drag-and-drop nodes, connected execution paths, and FastAPI-powered DAG validation.
 
+## Product Preview
+
+A conceptual view of the builder as a visual automation workspace: a canvas containing connected workflow nodes for inputs, LLM processing, APIs, databases, conditions, notifications, and outputs. The interface emphasizes **visual orchestration, reusable steps, graph structure, and immediate pipeline validation**.
+
 ## Overview
 
 AI Workflow Builder lets you visually compose workflows instead of defining every pipeline step manually in code. Nodes can be placed on a React Flow canvas, connected, configured, and submitted to a FastAPI endpoint that reports the workflow structure and whether the graph is a valid Directed Acyclic Graph (DAG).
