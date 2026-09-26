@@ -1,4 +1,4 @@
-#  AI Workflow Builder
+# AI Workflow Builder
 
 **Visual workflow builder for designing AI and automation pipelines as a graph.**
 
