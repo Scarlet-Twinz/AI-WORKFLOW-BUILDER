@@ -160,6 +160,9 @@ The natural next layers are persistence, workflow execution, run history, reusab
 
 MIT
 
+
+The repository is structured as a small, inspectable full-stack system so the workflow graph and validation boundary are easy to understand locally.
+
 ## Author
 
 **Anthony Emmanuella Mmasinachi**
