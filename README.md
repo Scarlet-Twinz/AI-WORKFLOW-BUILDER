@@ -156,15 +156,9 @@ The current implementation focuses on visual graph construction and DAG analysis
 
 The natural next layers are persistence, workflow execution, run history, reusable templates, authentication/workspaces, automated tests, and richer provider integrations.
 
+
 ## License
 
-MIT
+MIT License.
 
-
-The repository is structured as a small, inspectable full-stack system so the workflow graph and validation boundary are easy to understand locally.
-
-## Author
-
-**Anthony Emmanuella Mmasinachi**
-
-Full-stack and systems engineer focused on application architecture, backend systems, AI integration, workflow automation, distributed processing, and practical software engineering.
+See [LICENSE](LICENSE) for the full license text.
